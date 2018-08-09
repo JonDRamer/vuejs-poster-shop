@@ -9,11 +9,18 @@ new Vue({
             { id: 2, title: "Item 2", price: 3.99 },
             { id: 3, title: "Item 3", price: 2.99 }
         ],
-        cart: []
+        cart: [],
+        search: ""
     },
     methods: {
         onSubmit: function() {
-            console.log('Submitted!!!!');
+            console.log('Search Term: ', this.search);
+            
+            this.$http
+                .get(`/search/${this.search}`)
+                .then((res) => {
+                    console.log('Response: ', res);
+                });
             
         },
         addItem: function(index) {
