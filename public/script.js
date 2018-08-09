@@ -27,12 +27,18 @@ new Vue({
                 this.cart.push({
                     id: item.id,
                     title: item.title,
+                    price: item.price,
                     quantity: 1
                 });
             };
 
             this.total += item.price;
             
+        }
+    },
+    filters: {
+        currency: function(value) {
+            return `$${value.toFixed(2)}`;
         }
     }
 });
