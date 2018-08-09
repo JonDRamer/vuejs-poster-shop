@@ -12,6 +12,10 @@ new Vue({
         cart: []
     },
     methods: {
+        onSubmit: function() {
+            console.log('Submitted!!!!');
+            
+        },
         addItem: function(index) {
             let item = this.items[index];
             let found = false;
