@@ -34,6 +34,23 @@ new Vue({
 
             this.total += item.price;
             
+        },
+        increment: function(item) {
+            item.quantity++;
+            this.total += item.price;
+            
+        },
+        decrement: function( item ) {
+            item.quantity--;
+            this.total -= item.price;
+            if (item.quantity < 1) {
+                this.cart.forEach(( cartItem, index ) => {
+                    if ( cartItem.id === item.id ) {
+                        this.cart.splice( index, 1 );
+                    };
+                });
+            };
+            
         }
     },
     filters: {
