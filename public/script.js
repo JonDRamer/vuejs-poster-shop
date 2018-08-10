@@ -14,6 +14,12 @@ new Vue({
         loading: false
     },
     methods: {
+        appendItems: function() {
+            if ( this.items.length < this.results.length ) {
+                let append = this.results.slice(this.items.length, this.items.length + loadNum);
+                this.items = this.items.concat( append );
+            } 
+        },
         onSubmit: function() {
             this.items = [];
             this.loading = true;
@@ -22,8 +28,8 @@ new Vue({
                 .get(`/search/${this.newSearch}`)
                 .then((res) => {
                     this.results = res.data;
-                    this.items = res.data.slice(0, loadNum);
                     this.lastSearch = this.newSearch;
+                    this.appendItems();
                     this.loading = false;
 
                     this.items.forEach((item) => {
@@ -74,18 +80,17 @@ new Vue({
     },
     filters: {
         currency: function(value) {           
-            let formattedPrice = value.toFixed(2);
+            let formattedPrice = Number(value).toFixed(2);
             return `$${formattedPrice}`;
         }
     },
     mounted: function() {
-        this.onSubmit();    
-    }
-});
+        this.onSubmit();
 
-let productListBottom = document.getElementById('product-list-bottom');
-let watcher = scrollMonitor.create( productListBottom ); 
-watcher.enterViewport(function lazyLoad() {
-    console.log('Entered viewport');
-    
+        let vueInstance = this;
+        let watcher = scrollMonitor.create( document.getElementById('product-list-bottom') );
+        watcher.enterViewport(function lazyLoad() {
+            vueInstance.appendItems();
+        });
+    }
 });
