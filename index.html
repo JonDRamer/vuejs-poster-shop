@@ -24,7 +24,10 @@
     </div>
     <div class="main">
         <div class="products">
-            <div v-if="!loading" class="search-results">
+            <div v-if="loading" class="loading search-results">
+                <span>Loading</span> <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" style="width: 100px; height: 100px;" alt="">
+            </div>
+            <div v-if="!loading && items.length" class="search-results">
                 Found {{ items.length }} results for {{ lastSearch }}
             </div>
             <div class="product" v-for="(item, index) in items"> 
