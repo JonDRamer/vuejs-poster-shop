@@ -38,7 +38,7 @@ new Vue({
                         this.appendItems();
                         this.loading = false;
 
-                        this.items.forEach((item) => {
+                        this.results.forEach((item) => {
                             let randomNum = Math.random(100) * 100;
                             item.price = Number(randomNum.toFixed(2));
                         });
