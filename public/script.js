@@ -26,22 +26,24 @@ new Vue({
             } 
         },
         onSubmit: function() {
-            this.items = [];
-            this.loading = true;
-            
-            this.$http
-                .get(`/search/${this.newSearch}`)
-                .then((res) => {
-                    this.results = res.data;
-                    this.lastSearch = this.newSearch;
-                    this.appendItems();
-                    this.loading = false;
+            if (this.newSearch.length) {
+                this.items = [];
+                this.loading = true;
 
-                    this.items.forEach((item) => {
-                        let randomNum = Math.random(100) * 100;
-                        item.price = Number( randomNum.toFixed(2) );
+                this.$http
+                    .get(`/search/${this.newSearch}`)
+                    .then((res) => {
+                        this.results = res.data;
+                        this.lastSearch = this.newSearch;
+                        this.appendItems();
+                        this.loading = false;
+
+                        this.items.forEach((item) => {
+                            let randomNum = Math.random(100) * 100;
+                            item.price = Number(randomNum.toFixed(2));
+                        });
                     });
-                });
+            }
         },
         addItem: function(index) {
             let item = this.items[index];
