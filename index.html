@@ -3,12 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="referrer" content="never" />
-    <title>Vue.js Poster Shop</title>
+    <title>Vue.js Shopping Cart</title>
     <link rel="icon" href="public/favicon.ico" type="image/x-icon">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="public/style.css">
@@ -16,7 +15,7 @@
 <body>
 <div id="app">
     <div class="header">
-        <h1>Vue.js Poster Store</h1>
+        <h1>Vue.js Shopping Cart</h1>
         <form class="searchbar" v-on:submit.prevent="onSubmit()">
             <input v-model="newSearch" type="text">
             <input type="submit" value="Search" class="btn">
@@ -38,6 +37,7 @@
                 </div>
                 <div>
                     <h4 class="product-title">{{ item.title }}</h4>
+                    <p>Price: <strong>{{ item.price | currency }}</strong></p>
                     <button class="add-to-cart btn" v-on:click="addItem( index )">Add to Cart</button>
                 </div>
             </div>
@@ -47,13 +47,13 @@
             <ul>
                 <li class="cart-item" v-for="(item, index) in cart">
                     <span class="item-title">{{ item.title }}</span>
-                    <span class="item-qty">{{ item.price | currency }} x{{ item.quantity }}</span>
+                    <span class="item-qty"><strong>{{ item.price | currency }}</strong> x{{ item.quantity }}</span>
                     <button class="btn" v-on:click="increment( item, index )">+</button>
                     <button class="btn" v-on:click="decrement( item )">-</button>
                 </li>
             </ul>
             <div v-if="cart.length">
-                <div>Total: {{ total | currency }}</div>
+                <div><strong>Total:</strong> {{ total | currency }}</div>
             </div>
             <div class="empty-cart" v-else>
                 <div>No items in cart</div>

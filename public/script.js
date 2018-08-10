@@ -6,7 +6,7 @@ new Vue({
         total: 0,
         items: [],
         cart: [],
-        newSearch: '',
+        newSearch: 'Landscapes',
         lastSearch: '',
         loading: false
     },
@@ -73,5 +73,8 @@ new Vue({
             let formattedPrice = value.toFixed(2);
             return `$${formattedPrice}`;
         }
+    },
+    mounted: function() {
+        this.onSubmit();
     }
 });
