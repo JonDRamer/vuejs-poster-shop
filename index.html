@@ -27,7 +27,7 @@
                 <span>Loading</span> <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" style="width: 100px; height: 100px;" alt="">
             </div>
             <div v-if="!loading && items.length" class="search-results">
-                Found {{ items.length }} results for {{ lastSearch }}
+                Showing {{ items.length }} of {{ results.length }} results for {{ lastSearch }}
             </div>
             <div class="product" v-for="(item, index) in items"> 
                 <div>
@@ -41,7 +41,9 @@
                     <button class="add-to-cart btn" v-on:click="addItem( index )">Add to Cart</button>
                 </div>
             </div>
-            <div id="product-list-bottom"></div>
+            <div id="product-list-bottom">
+                <p v-if="items.length === results.length && results.length > 0">No more items</p>
+            </div>
         </div>
         <div class="cart">
             <h2>Shopping Cart</h2>
