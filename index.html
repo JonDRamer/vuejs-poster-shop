@@ -18,15 +18,25 @@
     <div class="header">
         <h1>Vue.js Poster Store</h1>
         <form class="searchbar" v-on:submit.prevent="onSubmit()">
-            <input v-model="search" type="text">
+            <input v-model="newSearch" type="text">
             <input type="submit" value="Search" class="btn">
         </form>
     </div>
     <div class="main">
         <div class="products">
+            <div v-if="!loading" class="search-results">
+                Found {{ items.length }} results for {{ lastSearch }}
+            </div>
             <div class="product" v-for="(item, index) in items"> 
-                <h4 class="product-title">{{ item.title }}</h4>
-                <button class="add-to-cart btn" v-on:click="addItem( index )">Add to Cart</button>
+                <div>
+                    <div class="product-image">
+                        <img v-bind:src="item.link" alt="Product Image">
+                    </div>
+                </div>
+                <div>
+                    <h4 class="product-title">{{ item.title }}</h4>
+                    <button class="add-to-cart btn" v-on:click="addItem( index )">Add to Cart</button>
+                </div>
             </div>
         </div>
         <div class="cart">
@@ -35,7 +45,7 @@
                 <li class="cart-item" v-for="(item, index) in cart">
                     <span class="item-title">{{ item.title }}</span>
                     <span class="item-qty">{{ item.price | currency }} x{{ item.quantity }}</span>
-                    <button class="btn" v-on:click="increment( item )">+</button>
+                    <button class="btn" v-on:click="increment( item, index )">+</button>
                     <button class="btn" v-on:click="decrement( item )">-</button>
                 </li>
             </ul>
