@@ -13,6 +13,11 @@ new Vue({
         lastSearch: '',
         loading: false
     },
+    computed: {
+        noMoreItems: function() {
+            return this.results.length > 1 && this.results.length === this.items.length;
+        }
+    },
     methods: {
         appendItems: function() {
             if ( this.items.length < this.results.length ) {
