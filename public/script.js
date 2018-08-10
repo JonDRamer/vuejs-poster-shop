@@ -1,10 +1,13 @@
 'use strict';
 
+const loadNum = 10;
+
 new Vue({
     el: '#app',
     data: {
         total: 0,
         items: [],
+        results: [],
         cart: [],
         newSearch: 'Landscapes',
         lastSearch: '',
@@ -18,7 +21,8 @@ new Vue({
             this.$http
                 .get(`/search/${this.newSearch}`)
                 .then((res) => {
-                    this.items = res.data;
+                    this.results = res.data;
+                    this.items = res.data.slice(0, loadNum);
                     this.lastSearch = this.newSearch;
                     this.loading = false;
 
@@ -75,6 +79,13 @@ new Vue({
         }
     },
     mounted: function() {
-        this.onSubmit();
+        this.onSubmit();    
     }
+});
+
+let productListBottom = document.getElementById('product-list-bottom');
+let watcher = scrollMonitor.create( productListBottom ); 
+watcher.enterViewport(function lazyLoad() {
+    console.log('Entered viewport');
+    
 });
